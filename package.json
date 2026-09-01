@@ -1,0 +1,14 @@
+{
+  "name": "site-inspiration-crawler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Render same-host websites with Playwright and save local HTML/assets for inspiration and review.",
+  "main": "crawler.js",
+  "scripts": {
+    "crawl": "node crawler.js",
+    "help": "node crawler.js --help"
+  },
+  "dependencies": {
+    "playwright": "^1.62.1"
+  }
+}
