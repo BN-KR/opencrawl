@@ -35,6 +35,7 @@ function parseArgs(argv) {
     if (typeof options[key] === 'number' && (!Number.isFinite(options[key]) || options[key] < 0)) throw new Error(`Invalid value for ${arg}`);
   }
   if (!options.url) throw new Error('--url is required');
+  if (!/^https?:\/\//i.test(options.url)) options.url = `https://${options.url}`;
   const parsed = new URL(options.url);
   if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error('URL must use http or https');
   options.url = normalizeUrl(parsed);
@@ -125,7 +126,7 @@ async function main() {
               const local = assetPath(assetUrl.toString(), options.output); fs.mkdirSync(path.dirname(local), { recursive: true });
               if (!fs.existsSync(local)) { const assetResponse = await context.request.get(assetUrl.toString(), { timeout: options.timeout }); if (!assetResponse.ok()) throw new Error(`HTTP ${assetResponse.status()}`); fs.writeFileSync(local, await assetResponse.body()); }
               const relative = path.relative(path.dirname(pagePath(current, options.output)), local).replaceAll(path.sep, '/');
-              html = html.split(resource).join(relative); report.assets.push({ url: assetUrl.toString(), file: local, status: 'saved' });
+              html = html.split(resource).join(relative).split(assetUrl.toString()).join(relative).split(assetUrl.pathname).join(relative); report.assets.push({ url: assetUrl.toString(), file: local, status: 'saved' });
             } catch (error) { report.assets.push({ url: resource, status: 'failed', error: error.message }); }
           }
         }
