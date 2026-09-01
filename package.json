@@ -6,7 +6,8 @@
   "main": "crawler.js",
   "scripts": {
     "crawl": "node crawler.js",
-    "help": "node crawler.js --help"
+    "help": "node crawler.js --help",
+    "start": "node server.js"
   },
   "dependencies": {
     "playwright": "^1.62.1"

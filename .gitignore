@@ -2,3 +2,4 @@ node_modules/
 output/*
 !output/.gitkeep
 verify-output/
+output/latest/
